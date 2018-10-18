@@ -13,28 +13,35 @@ public class ReadWriteHandler implements CompletionHandler<Integer, Attachment> 
         if (attachment.isRead()) {
             int     limits;
             byte[]  bytes;
-            String  msg;
-            byte[]  data;
+            String  routerResponse;
+            String  brokerRequest;
+            String  userInput;
+            byte[]  byteBrokerRequest;
 
             attachment.getBuffer().flip();
             limits = attachment.getBuffer().limit();
             bytes = new byte[limits];
             attachment.getBuffer().get(bytes, 0, limits);
-            msg = new String(bytes);
-            System.out.println("Server responded: " + msg);
-            try {
-                msg = getTextFromUser();
+            routerResponse = new String(bytes);
+            System.out.println(routerResponse);
+
+            userInput = "";
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+                userInput = bufferedReader.readLine();
             }
             catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error: " + e.getMessage());
             }
-            if (msg.equalsIgnoreCase("bye")) {
+
+            if (userInput.equalsIgnoreCase("q")) {
                 attachment.getMainThread().interrupt();
                 return ;
             }
+
             attachment.getBuffer().clear();
-            data = msg.getBytes();
-            attachment.getBuffer().put(data);
+            brokerRequest = ;
+            byteBrokerRequest = brokerRequest.getBytes();
+            attachment.getBuffer().put(byteBrokerRequest);
             attachment.getBuffer().flip();
             attachment.setRead(false);
             attachment.getClientChannel().write(attachment.getBuffer(), attachment, this);
@@ -50,15 +57,6 @@ public class ReadWriteHandler implements CompletionHandler<Integer, Attachment> 
     @Override
     public void failed(Throwable exc, Attachment attachment) {
         exc.printStackTrace();
-    }
-
-    private String getTextFromUser() throws IOException {
-        BufferedReader  bufferedReader;
-        String          msg;
-
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        msg = bufferedReader.readLine();
-        return (msg);
     }
 
 }
