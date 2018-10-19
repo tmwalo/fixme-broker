@@ -22,9 +22,10 @@ public class Main {
         attachment = new Attachment();
         attachment.setClientChannel(clientChannel);
         attachment.setBuffer(ByteBuffer.allocate(2048));
-        attachment.setRead(false);
+        attachment.setRead(true);
         attachment.setBrokerIdSet(false);
         attachment.setMainThread(Thread.currentThread());
+        clientChannel.read(attachment.getBuffer(), attachment, new ReadWriteHandler());
 
         attachment.getMainThread().join();
 
