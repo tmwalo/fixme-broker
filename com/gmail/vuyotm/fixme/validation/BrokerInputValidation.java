@@ -70,7 +70,7 @@ public class BrokerInputValidation {
             System.out.println("Error: Quantity is invalid - it must be a positive number.");
             return (false);
         }
-        if ((tokens.length == 3) && ((tokens[0]).equals("buy")) && isMarketId(tokens[2]))
+        if ((tokens.length == 4) && ((tokens[0]).equals("buy")) && isValidStr(tokens[2]) && isMarketId(tokens[3]))
             return (true);
         else
             return (false);
@@ -94,7 +94,7 @@ public class BrokerInputValidation {
             System.out.println("Error: Quantity is invalid - it must be a positive number.");
             return (false);
         }
-        if ((tokens.length == 3) && ((tokens[0]).equals("sell")) && isMarketId(tokens[2]))
+        if ((tokens.length == 4) && ((tokens[0]).equals("sell")) && isValidStr(tokens[2]) && isMarketId(tokens[3]))
             return (true);
         else
             return (false);
