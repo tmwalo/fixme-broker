@@ -4,6 +4,8 @@ public class BrokerInputValidation {
 
     private static final int    MARKET_ID_MIN = 100_000;
     private static final int    MARKET_ID_MAX = 999_999;
+    private static final int    ORDER_QTY_MIN = 0;
+    private static final int    ORDER_QTY_MAX = 1_000_000_000;
 
     public static boolean isValidStr(String brokerInput) {
         if ((brokerInput == null) || (brokerInput.length() == 0) || (brokerInput.equals("")))
@@ -66,7 +68,7 @@ public class BrokerInputValidation {
             System.out.println("Error: Quantity is invalid - it must be a number.");
             return (false);
         }
-        if (quantity <= 0) {
+        if ((quantity < ORDER_QTY_MIN) || (quantity > ORDER_QTY_MAX)) {
             System.out.println("Error: Quantity is invalid - it must be a positive number.");
             return (false);
         }
@@ -90,7 +92,7 @@ public class BrokerInputValidation {
             System.out.println("Error: Quantity is invalid - it must be a number.");
             return (false);
         }
-        if (quantity <= 0) {
+        if ((quantity < ORDER_QTY_MIN) || (quantity > ORDER_QTY_MAX)) {
             System.out.println("Error: Quantity is invalid - it must be a positive number.");
             return (false);
         }

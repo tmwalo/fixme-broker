@@ -9,6 +9,7 @@ public class Attachment {
     private ByteBuffer                  buffer;
     private Thread                      mainThread;
     private boolean                     isRead;
+    private boolean                     isBrokerIdSet;
 
     public AsynchronousSocketChannel getClientChannel() {
         return clientChannel;
@@ -40,6 +41,14 @@ public class Attachment {
 
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    public boolean isBrokerIdSet() {
+        return isBrokerIdSet;
+    }
+
+    public void setBrokerIdSet(boolean brokerIdSet) {
+        isBrokerIdSet = brokerIdSet;
     }
 
 }

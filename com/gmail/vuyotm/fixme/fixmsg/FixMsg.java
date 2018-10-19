@@ -2,6 +2,10 @@ package com.gmail.vuyotm.fixme.fixmsg;
 
 public class FixMsg {
 
+    public static final String      ORDER_MSG = "order";
+    public static final String      EXECUTE_MSG = "execute";
+    public static final String      REJECT_MSG = "reject";
+
     public static final String      TAG_VAL_SEPARATOR = "|";
     public static final String      TAG_VAL_LINK = "=";
 
@@ -26,5 +30,10 @@ public class FixMsg {
     public static final String      CUM_QTY_TAG = "14";
     public static final String      AVG_PX_TAG = "6";
     public static final String      REF_SEQ_NUM_TAG = "45";
+
+    public static final String      AUTO_EXEC_PRIVATE_NO_BROKER = "1";
+    public static final String      BUY = "1";
+    public static final String      SELL = "2";
+    public static final String      MARKET_ORDER_TYPE = "1";
 
 }

@@ -25,6 +25,7 @@ public class Main {
         attachment.setClientChannel(clientChannel);
         attachment.setBuffer(ByteBuffer.allocate(2048));
         attachment.setRead(false);
+        attachment.setBrokerIdSet(false);
         attachment.setMainThread(Thread.currentThread());
 
         msg = "Hello";

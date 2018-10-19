@@ -2,7 +2,7 @@ package com.gmail.vuyotm.fixme.fixmsg;
 
 public abstract class FixMsgFactory {
 
-    public static FixMsgType newOrderMsg(String senderCompId, String targetCompId, String clOrdId, String handlInst, String tickerSymbol, String side, int orderQty, String orderType) {
+    public static FixMsgOrder newOrderMsg(String senderCompId, String targetCompId, String clOrdId, String handlInst, String tickerSymbol, String side, int orderQty, String orderType) {
 
         FixMsgHeader    fixMsgHeader;
         FixMsgTrailer   fixMsgTrailer;
@@ -15,7 +15,7 @@ public abstract class FixMsgFactory {
 
     }
 
-    public static FixMsgType newExecMsg(String senderCompId, String targetCompId, String orderId, String execId, String execTransType, String orderStatus, String tickerSymbol, String side, int orderQty, int cumQty, float avgPx) {
+    public static FixMsgExecute newExecMsg(String senderCompId, String targetCompId, String orderId, String execId, String execTransType, String orderStatus, String tickerSymbol, String side, int orderQty, int cumQty, float avgPx) {
 
         FixMsgHeader    fixMsgHeader;
         FixMsgTrailer   fixMsgTrailer;
@@ -28,7 +28,7 @@ public abstract class FixMsgFactory {
 
     }
 
-    public static FixMsgType newRejectMsg(String senderCompId, String targetCompId, String refSeqNum) {
+    public static FixMsgReject newRejectMsg(String senderCompId, String targetCompId, String refSeqNum) {
 
         FixMsgHeader    fixMsgHeader;
         FixMsgTrailer   fixMsgTrailer;

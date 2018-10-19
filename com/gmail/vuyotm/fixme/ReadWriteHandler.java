@@ -1,5 +1,8 @@
 package com.gmail.vuyotm.fixme;
 
+import com.gmail.vuyotm.fixme.fixmsg.BrokerRequestCreation;
+import com.gmail.vuyotm.fixme.validation.BrokerInputValidation;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,35 +14,32 @@ public class ReadWriteHandler implements CompletionHandler<Integer, Attachment> 
     public void completed(Integer result, Attachment attachment) {
 
         if (attachment.isRead()) {
-            int     limits;
-            byte[]  bytes;
-            String  routerResponse;
-            String  brokerRequest;
-            String  userInput;
-            byte[]  byteBrokerRequest;
+            int                     limits;
+            byte[]                  bytes;
+            String                  routerResponse;
+            String                  brokerRequest;
+            byte[]                  byteBrokerRequest;
 
             attachment.getBuffer().flip();
             limits = attachment.getBuffer().limit();
             bytes = new byte[limits];
             attachment.getBuffer().get(bytes, 0, limits);
             routerResponse = new String(bytes);
+            if (!attachment.isBrokerIdSet()) {
+                BrokerData.setBrokerId(routerResponse);
+                attachment.setBrokerIdSet(true);
+                System.out.print("Broker Id: ");
+            }
             System.out.println(routerResponse);
 
-            userInput = "";
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
-                userInput = bufferedReader.readLine();
-            }
-            catch (IOException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
+            brokerRequest = getBrokerRequest();
 
-            if (userInput.equalsIgnoreCase("q")) {
+            if (BrokerInputValidation.isQuit(brokerRequest)) {
                 attachment.getMainThread().interrupt();
                 return ;
             }
 
             attachment.getBuffer().clear();
-            brokerRequest = ;
             byteBrokerRequest = brokerRequest.getBytes();
             attachment.getBuffer().put(byteBrokerRequest);
             attachment.getBuffer().flip();
@@ -57,6 +57,25 @@ public class ReadWriteHandler implements CompletionHandler<Integer, Attachment> 
     @Override
     public void failed(Throwable exc, Attachment attachment) {
         exc.printStackTrace();
+    }
+
+    public String getBrokerRequest() {
+        String                  brokerRequest;
+        String                  userInput;
+        BrokerRequestCreation   brokerRequestCreation;
+
+        while (true) {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
+                userInput = bufferedReader.readLine();
+                brokerRequestCreation = new BrokerRequestCreation(userInput);
+                brokerRequest = brokerRequestCreation.createBrokerRequest();
+                break ;
+            }
+            catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+        return (brokerRequest);
     }
 
 }
