@@ -15,22 +15,22 @@ public class ReadWriteHandler implements CompletionHandler<Integer, Attachment> 
 
         if (attachment.isRead()) {
             int                     limits;
-            byte[]                  bytes;
-            String                  routerResponse;
+            byte[]                  routerRespBytes;
+            String                  routerResp;
             String                  brokerRequest;
             byte[]                  byteBrokerRequest;
 
             attachment.getBuffer().flip();
             limits = attachment.getBuffer().limit();
-            bytes = new byte[limits];
-            attachment.getBuffer().get(bytes, 0, limits);
-            routerResponse = new String(bytes);
+            routerRespBytes = new byte[limits];
+            attachment.getBuffer().get(routerRespBytes, 0, limits);
+            routerResp = new String(routerRespBytes);
             if (!attachment.isBrokerIdSet()) {
-                BrokerData.setBrokerId(routerResponse);
+                BrokerData.setBrokerId(routerResp);
                 attachment.setBrokerIdSet(true);
                 System.out.print("Broker Id: ");
             }
-            System.out.println(routerResponse);
+            System.out.println(routerResp);
 
             brokerRequest = getBrokerRequest();
 
