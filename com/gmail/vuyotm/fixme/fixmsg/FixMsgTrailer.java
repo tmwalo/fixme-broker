@@ -1,7 +1,5 @@
 package com.gmail.vuyotm.fixme.fixmsg;
 
-import com.gmail.vuyotm.fixme.fixmsg.FixMsg;
-
 public class FixMsgTrailer {
 
     private static final int        MOD_VAL = 256;

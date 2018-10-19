@@ -13,7 +13,7 @@ public class Main {
 
         AsynchronousSocketChannel   clientChannel;
         Future<Void>                result;
-        Attachment attachment;
+        Attachment                  attachment;
         String                      msg;
         byte[]                      data;
 
@@ -31,7 +31,7 @@ public class Main {
         data = msg.getBytes();
         attachment.getBuffer().put(data);
         attachment.getBuffer().flip();
-        clientChannel.write(attachment.getBuffer(), attachment, new ReadWriteHandler());
+        clientChannel.write(attachment.getBuffer(), attachment, new com.gmail.vuyotm.fixme.ReadWriteHandler());
         attachment.getMainThread().join();
 
     }

@@ -1,4 +1,4 @@
-package validation;
+package com.gmail.vuyotm.fixme.validation;
 
 public class BrokerInputValidation {
 

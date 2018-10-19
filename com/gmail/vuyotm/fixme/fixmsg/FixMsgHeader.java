@@ -1,7 +1,5 @@
 package com.gmail.vuyotm.fixme.fixmsg;
 
-import com.gmail.vuyotm.fixme.fixmsg.FixMsg;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
